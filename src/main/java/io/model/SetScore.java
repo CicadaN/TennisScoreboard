@@ -9,50 +9,67 @@ public class SetScore {
 
     private int scoreFirstPlayer;
     private int scoreSecondPlayer;
-    private int taiBreakScoreFirstPlayer;
-    private int taiBreakScoreSecondPlayer;
+    private int tieBreakScoreFirstPlayer;
+    private int tieBreakScoreSecondPlayer;
+    private boolean isFinished = false;
+    private boolean isTieBrake = false;
 
-    private boolean tiebreak;
-    private boolean finished;
+    private final int SET_GAMES_TO_WIN = 6;
+    private final int TIE_BREAK_POINT_TO_WIN = 7;
+    private final int MIN_WIN_DIFF = 2;
 
-    public boolean gameWonBy(boolean first) {
-        if (finished) return false;
+    public boolean setWonBy(boolean first) {
 
-        if (first) scoreFirstPlayer++;
-        else scoreSecondPlayer++;
+        if (first) {
+            scoreFirstPlayer++;
+        } else {
+            scoreSecondPlayer++;
+        }
 
-        if (scoreFirstPlayer == 6 && scoreSecondPlayer == 6) {
-            tiebreak = true;
+        if (scoreFirstPlayer == SET_GAMES_TO_WIN && scoreSecondPlayer == SET_GAMES_TO_WIN) {
+            isTieBrake = true;
             return false;
         }
 
-        if (wonSet()) {
-            finished = true;
-        }
-        return wonSet();
-    }
-
-    public boolean wonSet() {
-        return (scoreSecondPlayer >= 6 || scoreFirstPlayer >= 6)
-                && (abs(scoreFirstPlayer - scoreSecondPlayer) >= 2);
-    }
-
-    public boolean tiePointBy(boolean first) {
-        if (finished || !tiebreak) return false;
-
-        if (first) taiBreakScoreFirstPlayer++;
-        else taiBreakScoreSecondPlayer++;
-
-        if ((taiBreakScoreFirstPlayer >= 7 || taiBreakScoreSecondPlayer >= 7)
-                && (abs(taiBreakScoreFirstPlayer - taiBreakScoreSecondPlayer) >= 2)) {
-            if (first) scoreFirstPlayer++;
-            else scoreSecondPlayer++;
-            tiebreak = false;
-            finished = true;
-            taiBreakScoreFirstPlayer = taiBreakScoreSecondPlayer = 0;
+        if ((scoreFirstPlayer >= SET_GAMES_TO_WIN || scoreSecondPlayer >= SET_GAMES_TO_WIN)
+                && (abs(scoreFirstPlayer - scoreSecondPlayer) >= MIN_WIN_DIFF)) {
+            isFinished = true;
             return true;
         }
+
         return false;
+    }
+
+    public boolean tieBreak(boolean first) {
+        if (!isTieBrake) return false;
+
+        if (first) {
+            tieBreakScoreFirstPlayer++;
+        } else {
+            tieBreakScoreSecondPlayer++;
+        }
+
+        if ( (tieBreakScoreSecondPlayer >= TIE_BREAK_POINT_TO_WIN || tieBreakScoreFirstPlayer >= TIE_BREAK_POINT_TO_WIN)
+                && abs(tieBreakScoreFirstPlayer - tieBreakScoreSecondPlayer) >= MIN_WIN_DIFF) {
+            isTieBrake = false;
+            resetTieBreak();
+            return true;
+        }
+
+        return false;
+    }
+
+    public void resetTieBreak() {
+        tieBreakScoreFirstPlayer = 0;
+        tieBreakScoreSecondPlayer = 0;
+    }
+
+    private void reset() {
+        scoreFirstPlayer = 0;
+        scoreSecondPlayer = 0;
+        resetTieBreak();
+        isFinished = false;
+        isTieBrake = false;
     }
 
 }

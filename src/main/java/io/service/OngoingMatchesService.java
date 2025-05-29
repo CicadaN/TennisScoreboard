@@ -1,6 +1,6 @@
 package io.service;
 
-import io.model.TennisMatch;
+import io.model.OngoingMatch;
 
 import java.util.Map;
 import java.util.UUID;
@@ -8,9 +8,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class OngoingMatchesService {
 
-    private final Map<UUID, TennisMatch> ongoingMatch;
+    private final Map<UUID, OngoingMatch> ongoingMatch;
 
-    public OngoingMatchesService(Map<UUID, TennisMatch> ongoingMatch) {
+    public OngoingMatchesService(Map<UUID, OngoingMatch> ongoingMatch) {
         this.ongoingMatch = new ConcurrentHashMap<>();
     }
 

@@ -22,6 +22,7 @@ public enum Point {
         };
     }
 
+    // TODO проверить использование и удалить
     public boolean isAdvantage() {return this == ADVANTAGE; }
     public boolean isForty() { return  this == FORTY; }
 }
