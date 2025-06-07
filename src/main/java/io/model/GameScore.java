@@ -9,7 +9,6 @@ public class GameScore {
 
     private Point scoreFirstPlayer = LOVE;
     private Point scoreSecondPlayer = LOVE;
-    private boolean isFinished = false;
 
     public boolean pointWonBy(boolean first) {
 
@@ -53,6 +52,5 @@ public class GameScore {
 
     public void reset() {
         scoreFirstPlayer = scoreSecondPlayer = LOVE;
-        isFinished = true;
     }
 }

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.TestInstance;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
-public class testGameScore {
+public class GameScoreTest {
 
     private GameScore gameScore;
 
@@ -22,7 +22,6 @@ public class testGameScore {
     void startGame() {
         assertEquals(Point.LOVE, gameScore.getScoreFirstPlayer());
         assertEquals(Point.LOVE, gameScore.getScoreSecondPlayer());
-        assertFalse(gameScore.isFinished());
     }
 
     @Test

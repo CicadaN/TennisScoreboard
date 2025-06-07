@@ -16,25 +16,23 @@ public class OngoingMatch {
 
     private final UUID uuid = UUID.randomUUID();
 
-    public final Player player1;
-    public final Player player2;
+    public final Player playerFirst;
+    public final Player playerSecond;
 
     private final List<SetScore> scores = new ArrayList<>(3);
 
-    private int currentSet;
-    private final GameScore currentGame = new GameScore();
+    private SetScore setScore = new SetScore();
+    private GameScore currentGame = new GameScore();
 
     private MatchStatus stage = MatchStatus.IN_PROGRESS;
-
-    private static final int SETS_TO_WIN = 2;
 
     private Player winner;
 
     public OngoingMatch(@NonNull Player player1, @NonNull Player player2) {
         if (player1.equals(player2))
             throw new ValidationExeption("TennisMatch", "The player cannot play with himself", new Throwable());
-        this.player1 = player1;
-        this.player2 = player2;
+        this.playerFirst = player1;
+        this.playerSecond = player2;
     }
 
 }

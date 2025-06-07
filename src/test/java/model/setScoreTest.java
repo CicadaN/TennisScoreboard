@@ -7,10 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class testSetScore {
+public class setScoreTest {
 
     private SetScore setScore;
-
 
     @BeforeEach
     void setUp() {
@@ -19,14 +18,14 @@ public class testSetScore {
 
     @Test
     void firstPlayerWin() {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 6; i++) {
             setScore.setWonBy(true);
         }
 
         int score = setScore.getScoreFirstPlayer();
 
         assertEquals(6, score);
-        assertTrue(setScore.isFinished());
+        assertTrue(setScore.isSetFinished());
     }
 
     @Test
@@ -38,37 +37,37 @@ public class testSetScore {
 
         assertEquals(setScore.getScoreSecondPlayer(), 5);
         assertEquals(setScore.getScoreFirstPlayer(), 5);
-        assertFalse(setScore.isFinished());
+        assertFalse(setScore.isSetFinished());
 
         setScore.setWonBy(false);
         setScore.setWonBy(false);
 
-        assertTrue(setScore.isFinished());
+        assertTrue(setScore.isSetFinished());
     }
 
 
     @Test
     void startTieBreakAndFinish() {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 6; i++) {
             setScore.setWonBy(true);
             setScore.setWonBy(false);
         }
 
-        assertFalse(setScore.isFinished());
-        assertTrue(setScore.isTieBrake());
+        assertTrue(setScore.isTieBreak());
+        assertFalse(setScore.isSetFinished());
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 7; i++) {
             setScore.tieBreak(true);
             setScore.tieBreak(false);
         }
 
-        assertTrue(setScore.isTieBrake());
-        assertFalse(setScore.isFinished());
+        assertTrue(setScore.isTieBreak());
+        assertFalse(setScore.isSetFinished());
 
         setScore.tieBreak(true);
         setScore.tieBreak(true);
 
-        assertFalse(setScore.isTieBrake());
+        assertFalse(setScore.isTieBreak());
     }
 
 }
